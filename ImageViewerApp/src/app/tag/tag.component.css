@@ -1,0 +1,16 @@
+#add-tag-area-root {
+    margin: 20px;
+}
+
+#add-tag-area {
+    width:250px;
+    margin: auto;
+}
+
+button {
+    background-color: lightgray;
+    border-style: solid;
+    border-color: darkgray;
+    border-width: 1px;
+    margin: 5px;
+}
