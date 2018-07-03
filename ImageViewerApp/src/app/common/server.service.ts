@@ -20,7 +20,7 @@ export class ServerService {
   /** GET images from the server */
   getImages(): Observable<any[]> {
     // var url: string = this.baseUrl + '/images';
-    // return this.http.get<any[]>(this.baseUrl)
+    // return this.http.get<any[]>(url)
     //   .pipe(
     //     catchError(this.handleError('getImages', []))
     //   );
