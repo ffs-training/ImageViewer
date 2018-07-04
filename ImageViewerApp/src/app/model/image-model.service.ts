@@ -3,15 +3,27 @@ import { ImageModel } from './image-model';
 import { ServerService } from '../common/server.service';
 import { deserialize } from 'serializer.ts/Serializer';
 import { serialize } from 'serializer.ts/Serializer';
-import { map, tap } from 'rxjs/operators';
-import { Observable } from 'rxjs';
+import { map, tap, catchError } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ImageModelService {
 
-  constructor() { }
+  constructor(private serverService: ServerService) { }
+
+  //images: Array<ImageModel>;
+  images: ImageModel[];
+  
+  fetch(){
+
+    this.serverService.getImages().pipe(map(
+      (images) => {
+        this.images = images.map((image) => this.deserialize(image))}), catchError(error => of(error)))
+
+  }
+
 
   private deserialize(image:any):ImageModel {
     return  deserialize<ImageModel>(ImageModel, {
@@ -20,6 +32,7 @@ export class ImageModelService {
       tags: image.Tags
     });
   }
+
 
   private serialize(imageModel:ImageModel):string {
     return serialize({
