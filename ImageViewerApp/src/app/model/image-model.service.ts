@@ -17,12 +17,12 @@ export class ImageModelService {
   }
   
 
-  fetch(){
-    this.serverService.getImages().pipe( 
+  fetch(): Observable<any> {
+    return this.serverService.getImages().pipe( 
       map( (images) => { this.imageModelArray = images.map( (image) => this.deserialize(image));} ),
       catchError(error => of(error)) 
     );
-    return this.imageModelArray;
+    
   }
 
   private deserialize(image:any):ImageModel {

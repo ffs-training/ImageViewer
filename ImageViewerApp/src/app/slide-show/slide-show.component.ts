@@ -12,9 +12,17 @@ import { ObserverService} from '../common/observer.service';
 })
 export class SlideShowComponent implements OnInit {
 
-  constructor() { }
+  imageModelArray: Array<ImageModel>;
+  constructor(private imageModelService: ImageModelService) {
+    this.imageModelArray = new Array<ImageModel>();
+  }
 
   ngOnInit() {
-
+    this.imageModelService.fetch().subscribe(
+      (image) => { 
+        this.imageModelArray.push(image);
+        console.log(image);
+      }      
+    )   
   }
 }
