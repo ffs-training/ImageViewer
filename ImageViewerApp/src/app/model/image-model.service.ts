@@ -11,21 +11,41 @@ import { Observable } from 'rxjs';
 })
 export class ImageModelService {
 
-  constructor() { }
+  images: ImageModel[];
 
-  private deserialize(image:any):ImageModel {
-    return  deserialize<ImageModel>(ImageModel, {
+  constructor(private serverService: ServerService) {
+
+  }
+
+  // サーバーAPIからデータをとってくる
+  // サーバーをよびたい
+  fetch(){
+      this.serverService.getImages().pipe(
+        // 成功時の処理
+        map((getImages) => {
+          this.images = [];
+          getImages.forEach((element) => {
+            this.images.push(this.deserialize(element));
+          });
+        })
+      );
+  }
+
+  private deserialize(image: any): ImageModel {
+    return deserialize<ImageModel>(ImageModel, {
       id: image.Id,
       path: image.Path,
       tags: image.Tags
     });
   }
 
-  private serialize(imageModel:ImageModel):string {
+  private serialize(imageModel: ImageModel): string {
     return serialize({
-      Id:imageModel.id,
-      Path:imageModel.path,
-      Tags:imageModel.tags
+      Id: imageModel.id,
+      Path: imageModel.path,
+      Tags: imageModel.tags
     });
   }
+
+
 }
