@@ -22,6 +22,7 @@ export class ImageModelService {
       map( (images) => { this.imageModelArray = images.map( (image) => this.deserialize(image));} ),
       catchError(error => of(error)) 
     );
+    return this.imageModelArray;
   }
 
   private deserialize(image:any):ImageModel {
