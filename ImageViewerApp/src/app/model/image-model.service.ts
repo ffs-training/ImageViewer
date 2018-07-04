@@ -21,7 +21,7 @@ export class ImageModelService {
     this.serverService.getImages().pipe(map(
       (images) => {
         this.images = images.map((image) => this.deserialize(image))}), catchError(error => of(error)))
-
+        return this.images;
   }
 
 

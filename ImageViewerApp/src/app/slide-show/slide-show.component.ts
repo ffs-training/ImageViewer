@@ -12,7 +12,7 @@ import { ObserverService} from '../common/observer.service';
 })
 export class SlideShowComponent implements OnInit {
 
-  constructor() { }
+
 
   ngOnInit() {
 
