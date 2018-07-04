@@ -11,7 +11,23 @@ import { Observable } from 'rxjs';
 })
 export class ImageModelService {
 
-  constructor() { }
+  constructor(private serverService:ServerService) { }
+
+  images:Array<ImageModel>;
+
+   fetch(){
+     this.serverService.getImages().pipe(
+       map( (anyObject) => {
+      //   this.images = images.map( (image);
+      //  });
+   
+       anyObject.forEach((object) => {
+         this.images.push(this.deserialize(object));
+          });
+        })
+      );
+    //  for(i:number =0:)
+   }
 
   private deserialize(image:any):ImageModel {
     return  deserialize<ImageModel>(ImageModel, {
