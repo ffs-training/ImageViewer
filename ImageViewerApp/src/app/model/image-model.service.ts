@@ -10,10 +10,19 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class ImageModelService {
+  images: Array<ImageModel>;
+  constructor(private serverService: ServerService) { }
 
-  constructor() { }
-
-  private deserialize(image:any):ImageModel {
+  fetch() {
+    this.images = [];
+    this.serverService.getImages().pipe(
+      map( (images) => {
+        this.images = images.map(image => this.deserialize(image))
+      })
+    );
+  }
+  
+  private deserialize(image: any): ImageModel {
     return  deserialize<ImageModel>(ImageModel, {
       id: image.Id,
       path: image.Path,
@@ -21,7 +30,7 @@ export class ImageModelService {
     });
   }
 
-  private serialize(imageModel:ImageModel):string {
+  private serialize(imageModel: ImageModel): string {
     return serialize({
       Id:imageModel.id,
       Path:imageModel.path,

@@ -11,8 +11,10 @@ import { ObserverService} from '../common/observer.service';
   styleUrls: ['./slide-show.component.css']
 })
 export class SlideShowComponent implements OnInit {
-
-  constructor() { }
+  url: string;
+  constructor() {
+    
+   }
 
   ngOnInit() {
 
