@@ -10,8 +10,26 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class ImageModelService {
+  images:ImageModel[];
 
-  constructor() { }
+  constructor(private serverService: ServerService) { }
+
+  fetch(){
+    this.images = [];
+    this.serverService.getImages().pipe(
+      map( (images) => {
+        images.forEach((image) => {
+            this.images.push(this.deserialize(image));
+        })
+      })
+    );
+
+    this.serverService.getImages().forEach((imgData) => {
+        this.images.push(this.deserialize(imgData));
+    });
+
+    
+  }
 
   private deserialize(image:any):ImageModel {
     return  deserialize<ImageModel>(ImageModel, {
