@@ -16,12 +16,16 @@ export class ImageModelService {
   //images: Array<ImageModel>;
   images: ImageModel[];
   
-  fetch(){
-
-    this.serverService.getImages().pipe(map(
+  fetch(): Observable<ImageModel[]>{
+    return this.serverService.getImages().pipe(
+      map(
       (images) => {
-        this.images = images.map((image) => this.deserialize(image))}), catchError(error => of(error)))
-        return this.images;
+        this.images = images.map((image) => this.deserialize(image))
+        return this.images ; 
+      }),
+         catchError(error => of(error))
+        )
+        //return of(this.images);
   }
 
 
