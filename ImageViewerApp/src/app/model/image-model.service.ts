@@ -13,16 +13,18 @@ export class ImageModelService {
   images : ImageModel[];
   constructor(private serverService : ServerService) { }
 
-  fetch(){
-    // this.serverService.getImages().pipe(
-    //   map((images) => {
-    //     this.images = images.map((image) =>{
-
-    //     });
-    //   })
-    // );
-    this.serverService.getImages().forEach(
-      (serverImage) => {this.images.push(this.deserialize(serverImage))}
+  fetch(): Observable<ImageModel[]>{
+    // return this.serverService.getImages().forEach(
+    //   (serverImage) => {this.images.push(this.deserialize(serverImage))}
+    // )
+    this.images=[];
+    return this.serverService.getImages().pipe(
+      map((images) => {
+        images.forEach((image) => {
+          this.images.push(this.deserialize(image))
+        });
+        return this.images;
+      })
     )
   }
 
