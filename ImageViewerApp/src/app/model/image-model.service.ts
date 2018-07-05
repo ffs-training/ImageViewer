@@ -13,14 +13,29 @@ export class ImageModelService {
   images: Array<ImageModel>;
   constructor(private serverService: ServerService) { }
 
-  fetch() {
+  //----------------mapのやり方----------------//
+  fetch() : Observable<ImageModel[]> {
     this.images = [];
-    this.serverService.getImages().pipe(
+    return this.serverService.getImages().pipe(
       map( (images) => {
-        this.images = images.map(image => this.deserialize(image))
+        this.images = images.map(image => this.deserialize(image));
+        return this.images;
       })
     );
   }
+
+  //--------------foreachのやり方--------------//
+  // fetch() : Observable<ImageModel[]> {
+  //   this.images = [];
+  //   return this.serverService.getImages().pipe(
+  //     map(images => {
+  //       images.forEach(image => {
+  //         this.images.push(this.deserialize(image))
+  //       });
+  //       return this.images;
+  //     })
+  //   );
+  // }
   
   private deserialize(image: any): ImageModel {
     return  deserialize<ImageModel>(ImageModel, {
