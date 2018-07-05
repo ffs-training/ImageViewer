@@ -7,7 +7,7 @@ import { ObserverService} from '../common/observer.service';
   styleUrls: ['./tag.component.css']
 })
 export class TagComponent implements OnInit {
-
+  tag ='';
   constructor() { }
 
   ngOnInit() {

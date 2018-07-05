@@ -13,6 +13,8 @@ const httpOptions = {
 })
 export class ServerService {
 
+  // private baseUrl = 'http://localhost:62174/api/';
+
   private baseUrl = 'https://localhost:0000/api/';
 
   constructor(private http: HttpClient) { }
