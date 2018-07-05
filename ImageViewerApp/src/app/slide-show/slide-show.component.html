@@ -1,18 +1,18 @@
 <div id="slide-show-root">
   <div id="slide-show">
-    <div id="slide-show-left" [ngClass]="{ 'disabled': false }">
+    <div id="slide-show-left" [ngClass]="{  'disabled':leftMoveEnable}" (click) = "Onleftslide($event)">
       <img src="../../assets/images/left.png" class="slider">
     </div>
     <div id="slide-show-main">
-      <li>
-        <img [src]="">
+        <li >
+        <img [src]="slideimages[imageIndex]?.path">
         <!-- ↓課題2で使用 -->
-        <!-- <div id="tag-view-area">
+        <div id="tag-view-area">
           <span>tag</span>
-        </div> -->
+        </div>
       </li>
     </div>
-    <div id="slide-show-right" [ngClass]="{'disabled': false}">
+    <div id="slide-show-right" [ngClass]="{'disabled':rightMoveEnable}" (click) = "Onrightslide($event)">
       <img src="../../assets/images/right.png" class="slider">
     </div>
   </div>
