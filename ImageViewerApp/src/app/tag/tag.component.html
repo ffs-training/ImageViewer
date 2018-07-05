@@ -1,7 +1,8 @@
 <div id="add-tag-area-root">
   <div id="add-tag-area">
-    <!-- <input [(ngModel) = 'tag']> -->
-    <button>追加</button>
-    <!--  {{tag}}  -->
+    <input [(ngModel)]="tag">
+    <button (click)="addTag()">追加</button>
+     {{tag}} 
   </div>
 </div>
+

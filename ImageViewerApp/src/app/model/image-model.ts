@@ -10,5 +10,9 @@ export class ImageModel {
         this.tags = tags;
     }
 
+    addTag(tag: string[]){
+        this.tags = tag;
+    }
+
 
 }

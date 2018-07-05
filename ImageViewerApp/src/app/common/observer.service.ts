@@ -9,7 +9,7 @@ import { Subject } from 'rxjs';
 
 export class ObserverService {
   private topics: {[key: string]: Subject<any[]>};
-  constructor() { 
+  constructor() {
     this.topics = {};
   }
 

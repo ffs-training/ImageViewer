@@ -6,6 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { SlideShowComponent } from './slide-show/slide-show.component';
 import { TagComponent } from './tag/tag.component';
+import { ObserverService } from './common/observer.service';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,10 @@ import { TagComponent } from './tag/tag.component';
     HttpClientModule,
     FormsModule
   ],
-  providers: [],
+  providers: [
+    ObserverService,
+    
+  ],
   bootstrap: [ AppComponent ]
 })
 export class AppModule { }

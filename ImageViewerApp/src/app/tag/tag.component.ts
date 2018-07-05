@@ -8,8 +8,12 @@ import { ObserverService} from '../common/observer.service';
 })
 export class TagComponent implements OnInit {
   tag ='';
-  constructor() { }
+  constructor(private observerService: ObserverService) { }
 
   ngOnInit() {
+  }
+
+  addTag(){
+    this.observerService.fireEvent('addTagEvent! ', this.tag);
   }
 }

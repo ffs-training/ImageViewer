@@ -38,11 +38,11 @@ export class ImageModelService {
 
   }
 
-  private deserialize(image: any): ImageModel {
+  private deserialize(anyObject: any): ImageModel {
     return deserialize<ImageModel>(ImageModel, {
-      id: image.Id,
-      path: image.Path,
-      tags: image.Tags
+      id: anyObject.Id,
+      path: anyObject.Path,
+      tags: anyObject.Tags
     });
   }
 

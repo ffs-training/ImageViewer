@@ -17,7 +17,8 @@ export class SlideShowComponent implements OnInit {
   rightMoveEnable:boolean;
   leftMoveEnable:boolean;
 
-  constructor(private imageModelService:ImageModelService) {
+  constructor(private imageModelService:ImageModelService,
+              private ovserverService:ObserverService) {
     this.imageIndex = 0;
     this.imageNumber = length;
     this.rightMoveEnable = false;
@@ -41,13 +42,19 @@ export class SlideShowComponent implements OnInit {
     else {
       this.leftMoveEnable = true;
     }
-
   }
+
   ngOnInit() {
     this.imageModelService.fetch().subscribe( 
-      images =>{
+      (images) =>{
         this.slideimages = images;
       }
-    )
-  }
+    );
+
+      this.ovserverService.addEventLister('addTagEvent!',this,(tag) =>{
+      // this.images[this.imageIndex];
+      });
+    
+    }
+  
 }
