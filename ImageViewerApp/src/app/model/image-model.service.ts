@@ -3,7 +3,7 @@ import { ImageModel } from './image-model';
 import { ServerService } from '../common/server.service';
 import { deserialize } from 'serializer.ts/Serializer';
 import { serialize } from 'serializer.ts/Serializer';
-import { map, tap } from 'rxjs/operators';
+import { map, tap, catchError } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -19,16 +19,20 @@ export class ImageModelService {
 
   // サーバーAPIからデータをとってくる
   // サーバーをよびたい
-  fetch(){
-      this.serverService.getImages().pipe(
-        // 成功時の処理
-        map((getImages) => {
-          this.images = [];
-          getImages.forEach((element) => {
-            this.images.push(this.deserialize(element));
-          });
-        })
-      );
+  // observableを返す
+  fetch(): Observable<ImageModel[]> {
+    return this.serverService.getImages().pipe(
+      // 成功時の処理
+      map((getImages) => {
+        this.images = [];
+        getImages.forEach((element) => {
+          this.images.push(this.deserialize(element));
+        });
+        return this.images;
+      }),
+      // 失敗時の処理
+      //catchError(error => of(error)); // 失敗した時のエラー
+    );
   }
 
   private deserialize(image: any): ImageModel {
