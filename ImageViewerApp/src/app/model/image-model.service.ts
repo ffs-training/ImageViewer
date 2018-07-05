@@ -14,28 +14,32 @@ export class ImageModelService {
   public images: ImageModel[];
   constructor(private serverService: ServerService) { }
 
-  private deserialize(image:any):ImageModel {
-    return  deserialize<ImageModel>(ImageModel, {
+  private deserialize(image: any): ImageModel {
+    return deserialize<ImageModel>(ImageModel, {
       id: image.Id,
       path: image.Path,
       tags: image.Tags
     });
   }
 
-  private serialize(imageModel:ImageModel):string {
+  private serialize(imageModel: ImageModel): string {
     return serialize({
-      Id:imageModel.id,
-      Path:imageModel.path,
-      Tags:imageModel.tags
+      Id: imageModel.id,
+      Path: imageModel.path,
+      Tags: imageModel.tags
     });
   }
 
-  
+  public addTag(id: number, tag: string) {
+    let image = this.images.find((image) => image.id===id)
+    image.addTag(tag);
+    this.serverService.updateImage(id,this.serialize(image))
+  }
 
-  public fetch(): Observable<ImageModel[]>{
+  public fetch(): Observable<ImageModel[]> {
     this.images = [];
     return this.serverService.getImages().pipe(
-      map( (images) => {
+      map((images) => {
         images.forEach((image) => {
           this.images.push(this.deserialize(image));
         })

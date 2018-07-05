@@ -13,7 +13,8 @@ import { ObserverService } from '../common/observer.service';
 export class SlideShowComponent implements OnInit {
   images: ImageModel[];
   showIndex = 0;
-  constructor(private imageModelService: ImageModelService) {
+  tag: string;
+  constructor(private imageModelService: ImageModelService,private observerService:ObserverService) {
     this.imageModelService.fetch();
   }
 
@@ -21,6 +22,12 @@ export class SlideShowComponent implements OnInit {
     this.imageModelService.fetch().subscribe(
       (images) => { this.images = images }
     );
+    this.observerService.addEventLister('addTagEvent!',this,
+    (tagtext)=>{
+      // this.images[this.showIndex].addTag(tagtext);
+      this.imageModelService.addTag(this.images[this.showIndex].id,tagtext);
+      }
+  );
   }
   onLeft(event) {
     if (this.showIndex > 0) {
