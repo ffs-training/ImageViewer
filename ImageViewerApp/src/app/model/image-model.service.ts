@@ -10,22 +10,57 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class ImageModelService {
+  private images: ImageModel[];
 
-  constructor() { }
+  constructor(private serverService: ServerService) { }
 
-  private deserialize(image:any):ImageModel {
+  fetch(): Observable<ImageModel[]> {
+    return this.serverService.getImages()
+    .pipe(
+      map( (anyObjects) => {
+        // this.images = anyObjects.map((anyObject) => {
+
+        // });
+        this.images = [];
+        anyObjects.forEach((anyObject) => {
+        this.images.push(this.deserialize(anyObject));
+        });
+      return this.images;
+      })
+    );
+  }
+
+addTag(id: number, tag: string) {
+  // idの一致するimageをみつける
+  // const image = this.images.find( (img) => {
+  //   return img.id === id;
+  // });
+  // image.addTag(tag);
+
+this.images.forEach((img) => {
+  if (img.id === id) {
+    img.addTag(tag);
+  }
+});
+
+this.serverService.updateImage();
+
+}
+
+  private deserialize(anyObject: any): ImageModel {
     return  deserialize<ImageModel>(ImageModel, {
-      id: image.Id,
-      path: image.Path,
-      tags: image.Tags
+      id: anyObject.Id,
+      path: anyObject.Path,
+      tags: anyObject.Tags
+  
     });
   }
 
-  private serialize(imageModel:ImageModel):string {
+  private serialize(imageModel: ImageModel): string {
     return serialize({
-      Id:imageModel.id,
-      Path:imageModel.path,
-      Tags:imageModel.tags
+      Id: imageModel.id,
+      Path: imageModel.path,
+      Tags: imageModel.tags
     });
   }
 }

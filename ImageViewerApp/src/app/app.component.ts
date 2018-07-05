@@ -12,7 +12,7 @@ import { ServerService } from './common/server.service';
   ]
 })
 export class AppComponent implements OnInit {
-  isLoading: boolean = true;
+  isLoading: boolean = false;
 
   constructor() {}
 
