@@ -5,13 +5,14 @@ import { deserialize } from 'serializer.ts/Serializer';
 import { serialize } from 'serializer.ts/Serializer';
 import { map, tap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ImageModelService {
-
-  constructor() { }
+  public images: ImageModel[];
+  constructor(private serverService: ServerService) { }
 
   private deserialize(image:any):ImageModel {
     return  deserialize<ImageModel>(ImageModel, {
@@ -27,5 +28,19 @@ export class ImageModelService {
       Path:imageModel.path,
       Tags:imageModel.tags
     });
+  }
+
+  
+
+  public fetch(): Observable<ImageModel[]>{
+    this.images = [];
+    return this.serverService.getImages().pipe(
+      map( (images) => {
+        images.forEach((image) => {
+          this.images.push(this.deserialize(image));
+        })
+        return this.images;
+      }),
+    );
   }
 }
