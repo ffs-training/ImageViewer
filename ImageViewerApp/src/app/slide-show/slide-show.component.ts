@@ -11,10 +11,27 @@ import { ObserverService} from '../common/observer.service';
   styleUrls: ['./slide-show.component.css']
 })
 export class SlideShowComponent implements OnInit {
-
-  constructor() { }
-
+  images:ImageModel[];
+  showIndex:number = 0;
+  constructor(private imageModelService:ImageModelService,
+    private observerService:ObserverService) {
+   }
+  
   ngOnInit() {
-
+    this.imageModelService.fetch().subscribe(image => this.images = image);
+    this.observerService.addEventLister('addTagEvent!',this,
+    (tag)=>{this.images[this.showIndex].tags+tag;});
   }
+  incrementer(event){
+    if(this.images.length-1>this.showIndex){
+    this.showIndex++;
+    }
+  }
+
+  decrementer(event){
+    if(this.showIndex>0){
+    this.showIndex--;
+    }
+  }
+
 }
