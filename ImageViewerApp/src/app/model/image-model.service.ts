@@ -28,6 +28,7 @@ export class ImageModelService {
         getImages.forEach((element) => {
           this.images.push(this.deserialize(element));
         });
+        // ここで返す型によってObservableの型が決定する
         return this.images;
       }),
       // 失敗時の処理

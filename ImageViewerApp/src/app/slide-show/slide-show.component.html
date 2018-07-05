@@ -4,13 +4,20 @@
       <img src="../../assets/images/left.png" class="slider">
     </div>
     <div id="slide-show-main">
+      <!-- これでも動くここから -->
+      <!-- <li *ngFor="let image of images; let i = index">
+          <img [src]="image.path"> -->
+      <!-- ここまで -->
       <li>
-        <img [src]="">
-        <!-- ↓課題2で使用 -->
-        <!-- <div id="tag-view-area">
-          <span>tag</span>
-        </div> -->
+          <img [src]="images[0].path">
+        <!-- <ng-template ngFor let-image [ngForOf]="images">
+            <img [src]="image.path">
+        </ng-template>      -->
       </li>
+            <!-- ↓課題2で使用 -->
+            <!-- <div id="tag-view-area">
+              <span>tag</span>
+            </div> -->
     </div>
     <div id="slide-show-right" [ngClass]="{'disabled': false}">
       <img src="../../assets/images/right.png" class="slider">

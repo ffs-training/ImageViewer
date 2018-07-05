@@ -12,7 +12,7 @@ import { ServerService } from '../common/server.service';
   styleUrls: ['./slide-show.component.css']
 })
 export class SlideShowComponent implements OnInit {
-
+  images: ImageModel[];
   constructor(private imageModelService: ImageModelService) { }
 
   ngOnInit() {
@@ -21,6 +21,7 @@ export class SlideShowComponent implements OnInit {
       this.imageModelService.fetch().subscribe(
       (data) => {
         console.log(data); // ここでブレークポイントを貼る
+        this.images = data;
       });
   }
 }
