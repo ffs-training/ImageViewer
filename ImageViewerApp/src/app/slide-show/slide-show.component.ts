@@ -17,14 +17,19 @@ export class SlideShowComponent implements OnInit {
   private disableLeft: boolean;
   private disableRight: boolean;
 
-  constructor(private imageModelService: ImageModelService) {
-    this.imageIndex = 0;
-    this.disableLeft = true;
-    this.disableRight = false;
-  }
+  constructor(private imageModelService: ImageModelService, private observerService:ObserverService) {}
 
   ngOnInit() {
-    this.imageModelService.fetch().subscribe((images) => { this.images = images; });
+    this.imageModelService.fetch().subscribe((images) => { 
+      this.images = images; 
+      this.imageIndex = 0;
+      this.renewButtonDisabled();
+    });
+    
+
+    this.observerService.addEventLister('addTagEvent', this, (tag) => {
+      this.imageModelService.addTag(this.images[this.imageIndex].id, tag);
+    });
   }
 
   incrementIndex(event) {

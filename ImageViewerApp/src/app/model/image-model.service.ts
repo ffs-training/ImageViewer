@@ -30,6 +30,18 @@ export class ImageModelService {
     // });
   }
 
+  addTag(id:number, tag:string):ImageModel[]{
+    let image = this.images.find((image) => {
+      return image.id === id
+    });
+
+    image.addTag(tag);
+
+    this.serverService.updateImage(id, this.serialize(image));
+
+    return this.images;
+  }
+
   private deserialize(image:any):ImageModel {
     return  deserialize<ImageModel>(ImageModel, {
       id: image.Id,

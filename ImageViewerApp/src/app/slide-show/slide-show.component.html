@@ -5,13 +5,19 @@
     </div>
     <div id="slide-show-main">
       <!-- <li *ngFor="let image of images; let i = index"> -->
-        <!-- <img *ngIf="i === imageIndex" [src]="image.path"> -->
-        <li>
-        <img [src] = "images[imageIndex].path">
+      <!-- <img *ngIf="i === imageIndex" [src]="image.path"> -->
+      <li>
+        <img [src]="images[imageIndex].path" *ngIf="images.length > 0">
         <!-- ↓課題2で使用 -->
-        <!-- <div id="tag-view-area">
-          <span>tag</span>
-        </div> -->
+        <div id="tag-view-area">
+          タグ情報：
+          <span *ngFor="let tag of images[imageIndex].tags; let i = index">
+            <span *ngIf="i !== 0">
+              ,
+            </span>
+            {{tag}}
+          </span>
+        </div>
       </li>
     </div>
     <div id="slide-show-right" [ngClass]="{'disabled': disableRight}">
