@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { ImageModel } from '../model/image-model';
 import { ImageModelService} from '../model/image-model.service';
 
-import { ObserverService} from '../common/observer.service';
+import {ObserverService} from '../common/observer.service';
 
 import { ServerService } from '../common/server.service';
 
@@ -17,6 +17,7 @@ export class SlideShowComponent implements OnInit {
 
 
   constructor(private imagemodelservice: ImageModelService) { }
+  private observerService: ObserverService;
 
   //images: Observable<ImageModel[]>;
   images: ImageModel[];
@@ -42,8 +43,12 @@ minIndex = 0;
     this.imagemodelservice.fetch().subscribe((images)=>{
       this.images = images
       this.maxIndex =  this.images.length -1
-    })
+    }
+  );
 
+  this.observerService.addEventLister('addTagEvent', this, (tag) => {
+   this.images[this.showIndex];
+  });
   }
 }
 

@@ -15,6 +15,7 @@ export class ImageModelService {
 
   //images: Array<ImageModel>;
   images: ImageModel[];
+
   
   fetch(): Observable<ImageModel[]>{
     return this.serverService.getImages().pipe(
@@ -27,6 +28,15 @@ export class ImageModelService {
         )
         //return of(this.images);
   }
+
+addTag(id: number, tag: string){
+
+  const image = this.images.find((image) => {return image.id === id});
+  image.addTag(tag);
+  
+  this.serverService.updateImage(image.id, this.serialize(image))
+}
+
 
 
   private deserialize(image:any):ImageModel {
