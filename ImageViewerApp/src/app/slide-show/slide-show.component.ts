@@ -19,27 +19,34 @@ export class SlideShowComponent implements OnInit {
   isleft: boolean;
   isright: boolean;
 
-  constructor(private imageModelService :ImageModelService) { 
+  constructor(private imageModelService :ImageModelService, 
+    private observerService: ObserverService) { 
     this.target_index = 0;
     this.isleft = true;
     this.isright = false;
   }
 
   ngOnInit() {
+    //サーバーからデータを取得（ImageModel型の配列）
     this.imageModelService.fetch().subscribe(
       (data) =>{
         this.items = data;
       }
-    );
+    )
+    //イベント設定
+    this.observerService.addEventLister('update',this, (tag) => {
+      this.imageModelService.update(this.target_index,tag);
+    });
   }
 
   onright(event){
     if(this.target_index < this.items.length-1){ //ここまではindex=8まで受け入れ
       this.target_index++; //index=9になる
       this.isleft = false;
+      // this.nowfetch();
     }
-    if(this.target_index === this.items.length-1){ //index=9ならば
-      this.isright=true;
+    if(this.target_index === this.items.length-1){ //index=9ならば（前のif文でindex=9になるので、elseは適用できない)
+      this.isright = true;
     }
   }
   
@@ -47,10 +54,19 @@ export class SlideShowComponent implements OnInit {
     if(this.target_index > 0){ //ここまではindex=1まで受け入れ
       this.target_index--;　//index=0になる
       this.isright = false;
+      // this.nowfetch();
     }
-    if(this.target_index === 0){　//index=0ならば
-      this.isleft=true;
+    if(this.target_index === 0){　//index=0ならば（上記と同じ）
+      this.isleft = true;
     }
   }
+
+  // nowfetch(){
+  //   this.imageModelService.fetch().subscribe(
+  //     (data) =>{
+  //       this.items = data;
+  //     }
+  //   )
+  // }
 
 }

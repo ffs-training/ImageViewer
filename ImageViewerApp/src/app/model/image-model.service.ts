@@ -33,7 +33,9 @@ export class ImageModelService {
 
   public fetch(): Observable<ImageModel[]>
   {
+    //ImageModel型の配列を初期化
     this.images = [];
+    //配列を取得
     return this.serverService.getImages().pipe(
       map( (images) => {
         images.forEach((image) =>{
@@ -43,4 +45,12 @@ export class ImageModelService {
       })
     );
   }
+
+  public update(index: number, input: string){
+    //新しいtagを設定
+    this.images[index].setTags(input);
+    //アップデート（サーバー）
+    this.serverService.updateImage(this.images[index].id,this.serialize(this.images[index]));
+  }
+
 }

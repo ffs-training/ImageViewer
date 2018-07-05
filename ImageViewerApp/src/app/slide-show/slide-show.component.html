@@ -7,12 +7,16 @@
     </div>
     <div id="slide-show-main">
       <li *ngFor="let item of items; let i = index">
-        <img *ngIf="i === target_index" [src]="item.path">
+        <img [src]="item.path" *ngIf="i === target_index">
         <!-- <img [src]=""> -->
         <!-- ↓課題2で使用 -->
-        <!-- <div id="tag-view-area">
-          <span>tag</span>
-        </div> -->
+        <div id="tag-view-area" *ngIf="i === target_index">
+          <span>tag:</span>
+          <span *ngFor="let tag of item.tags; let j = index">
+            <span *ngIf="j != 0">,</span>
+            <span>{{tag}}</span>
+          </span>
+        </div>
       </li>
     </div>
     <div id="slide-show-right" [ngClass]="{'disabled': isright}">
