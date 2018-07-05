@@ -4,15 +4,15 @@
       <img src="../../assets/images/left.png" class="slider">
     </div>
     <div id="slide-show-main">
-      <li>
-        <img [src]="">
-        <!-- ↓課題2で使用 -->
-        <!-- <div id="tag-view-area">
+      <li *ngFor="let image of images; let i = index">
+        <img [src]="image.path" *ngIf="i == showIndex">
+        
+        <div id="tag-view-area" *ngIf="i == showIndex">
           <span>tag</span>
-        </div> -->
+        </div> 
       </li>
     </div>
-    <div id="slide-show-right" [ngClass]="{'disabled': false}">
+    <div id="slide-show-right" (click)="right()" [ngClass]="{'disabled': false}">
       <img src="../../assets/images/right.png" class="slider">
     </div>
   </div>
