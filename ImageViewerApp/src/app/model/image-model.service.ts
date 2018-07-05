@@ -5,13 +5,14 @@ import { deserialize } from 'serializer.ts/Serializer';
 import { serialize } from 'serializer.ts/Serializer';
 import { map, tap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+import { ObserverService } from '../common/observer.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ImageModelService {
   images: Array<ImageModel>;
-  constructor(private serverService: ServerService) { }
+  constructor(private serverService: ServerService,private observerService: ObserverService) { }
 
   //----------------mapのやり方----------------//
   fetch() : Observable<ImageModel[]> {
@@ -24,18 +25,14 @@ export class ImageModelService {
     );
   }
 
-  //--------------foreachのやり方--------------//
-  // fetch() : Observable<ImageModel[]> {
-  //   this.images = [];
-  //   return this.serverService.getImages().pipe(
-  //     map(images => {
-  //       images.forEach(image => {
-  //         this.images.push(this.deserialize(image))
-  //       });
-  //       return this.images;
-  //     })
-  //   );
-  // }
+  addTag(id:number, tag:string){
+    let image = this.images.find(i => i.id === id);
+    image.updateTag(tag);
+    this.serverService.updateImage(image.id, this.serialize(image)).pipe(
+      map(() => this.observerService.fireEvent('updateOver'))
+    );
+  }
+  
   
   private deserialize(image: any): ImageModel {
     return  deserialize<ImageModel>(ImageModel, {

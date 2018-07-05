@@ -13,39 +13,39 @@ const httpOptions = {
 })
 export class ServerService {
 
-  private baseUrl = 'https://localhost:0000/api/';
+  private baseUrl = 'http://localhost:62174/api/';
 
   constructor(private http: HttpClient) { }
 
   /** GET images from the server */
   getImages(): Observable<any[]> {
-    // var url: string = this.baseUrl + '/images';
-    // return this.http.get<any[]>(url)
-    //   .pipe(
-    //     catchError(this.handleError('getImages', []))
-    //   );
-    const images = [
-      { Id: 1, Path: '../../assets/images/test-image.png', Tags:[]},
-      { Id: 2, Path: '../../assets/images/test-image2.jpg', Tags:[] },
-      { Id: 3, Path: '../../assets/images/test-image.png', Tags:[] },
-      { Id: 4, Path: '../../assets/images/test-image2.jpg', Tags:[] },
-      { Id: 5, Path: '../../assets/images/test-image.png', Tags:[] },
-      { Id: 6, Path: '../../assets/images/test-image2.jpg', Tags:[] },
-      { Id: 7, Path: '../../assets/images/test-image.png', Tags:[] },
-      { Id: 8, Path: '../../assets/images/test-image2.jpg', Tags:[] },
-      { Id: 9, Path: '../../assets/images/test-image.png', Tags:[] },
-      { Id: 10, Path: '../../assets/images/test-image2.jpg', Tags:[] }
-    ];
-    return of(images);
+    var url: string = this.baseUrl + '/images';
+    return this.http.get<any[]>(url)
+      .pipe(
+        catchError(this.handleError('getImages', []))
+      );
+    // const images = [
+    //   { Id: 1, Path: '../../assets/images/test-image.png', Tags:[]},
+    //   { Id: 2, Path: '../../assets/images/test-image2.jpg', Tags:[] },
+    //   { Id: 3, Path: '../../assets/images/test-image.png', Tags:[] },
+    //   { Id: 4, Path: '../../assets/images/test-image2.jpg', Tags:[] },
+    //   { Id: 5, Path: '../../assets/images/test-image.png', Tags:[] },
+    //   { Id: 6, Path: '../../assets/images/test-image2.jpg', Tags:[] },
+    //   { Id: 7, Path: '../../assets/images/test-image.png', Tags:[] },
+    //   { Id: 8, Path: '../../assets/images/test-image2.jpg', Tags:[] },
+    //   { Id: 9, Path: '../../assets/images/test-image.png', Tags:[] },
+    //   { Id: 10, Path: '../../assets/images/test-image2.jpg', Tags:[] }
+    // ];
+    // return of(images);
   }
 
   updateImage(id: number, json: string): Observable<any> {
-    // var url: string = this.baseUrl + '/' + id + '/';
-    // return this.http.put<any>(url, json, httpOptions)
-    //   .pipe(
-    //     catchError(this.handleError('updateImage', []))
-    //   );
-    return of({});
+    var url: string = this.baseUrl + '/' + id + '/';
+    return this.http.put<any>(url, json, httpOptions)
+      .pipe(
+        catchError(this.handleError('updateImage', []))
+      );
+    // return of({});
   }
 
   private handleError<T>(operation = 'operation', result?: T) {
