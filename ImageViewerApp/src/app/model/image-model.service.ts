@@ -46,4 +46,8 @@ export class ImageModelService {
     });
   }
 
+  updateTags(id: number, tag: string){
+    this.imageModelArray.find((image) =>  {return image.id == id}).setTag(tag);
+    this.serverService.updateImage(id, tag);
+  }
 }

@@ -40,12 +40,12 @@ export class ServerService {
   }
 
   updateImage(id: number, json: string): Observable<any> {
-    // var url: string = this.baseUrl + '/' + id + '/';
-    // return this.http.put<any>(url, json, httpOptions)
-    //   .pipe(
-    //     catchError(this.handleError('updateImage', []))
-    //   );
-    return of({});
+    var url: string = this.baseUrl + '/images/' + id + '/';
+    return this.http.put<any>(url, json, httpOptions)
+      .pipe(
+        catchError(this.handleError('updateImage', []))
+      );
+    //return of({});
   }
 
   private handleError<T>(operation = 'operation', result?: T) {

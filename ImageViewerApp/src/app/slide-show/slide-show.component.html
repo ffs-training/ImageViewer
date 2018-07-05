@@ -7,9 +7,11 @@
       <li *ngFor= "let image of imageModelArray; let i = index">
         <img *ngIf= "i === showIndex" [src]="image.path">
         <!-- ↓課題2で使用 -->
-        <!-- <div id="tag-view-area">
-          <span>tag</span>
-        </div> -->
+        <div *ngIf= "i === showIndex" id="tag-view-area">
+            <!-- <span *ngIf= "i === showIndex">Tag:{{image.tags}}</span> -->
+            <span>Tagやで : </span>
+            <span *ngFor= "let tag of image.tags;">{{tag}} </span>
+        </div>
       </li>
     </div>
     <div id="slide-show-right" [ngClass]="{'disabled': isRight}" type="button" (click)="onRightClick($event)">
