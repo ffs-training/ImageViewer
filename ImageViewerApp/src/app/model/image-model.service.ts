@@ -31,14 +31,15 @@ export class ImageModelService {
     });
   }
 
-  public fetch()
+  public fetch(): Observable<ImageModel[]>
   {
     this.images = [];
-    this.serverService.getImages().pipe(
+    return this.serverService.getImages().pipe(
       map( (images) => {
         images.forEach((image) =>{
-          this.images.push(this.deserialize(image));
+          this.images.push(this.deserialize(image))
         });
+        return this.images;
       })
     );
   }

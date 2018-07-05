@@ -1,19 +1,24 @@
 <div id="slide-show-root">
   <div id="slide-show">
-    <div id="slide-show-left" [ngClass]="{ 'disabled': false }">
-      <img src="../../assets/images/left.png" class="slider">
+    <div id="slide-show-left" [ngClass]="{'disabled': isleft}">
+        <!-- <button type="button" (click)="onleft($event)"> -->
+          <img src="../../assets/images/left.png" class="slider" (click)="onleft($event)">
+        <!-- </button> -->
     </div>
     <div id="slide-show-main">
-      <li>
-        <img [src]="">
+      <li *ngFor="let item of items; let i = index">
+        <img *ngIf="i === index" [src]="item.path">
+        <!-- <img [src]=""> -->
         <!-- ↓課題2で使用 -->
         <!-- <div id="tag-view-area">
           <span>tag</span>
         </div> -->
       </li>
     </div>
-    <div id="slide-show-right" [ngClass]="{'disabled': false}">
-      <img src="../../assets/images/right.png" class="slider">
+    <div id="slide-show-right" [ngClass]="{'disabled': isright}">
+      <!-- <button type="button" (click)="onright($event)"> -->
+          <img src="../../assets/images/right.png" class="slider" (click)="onright($event)">
+      <!-- </button> -->
     </div>
   </div>
 </div>
