@@ -20,26 +20,26 @@ export class SlideShowComponent implements OnInit {
   constructor(private imageModelService:ImageModelService) {
     this.imageIndex = 0;
     this.imageNumber = length;
-    this.rightMoveEnable =true;
-    this.leftMoveEnable = false;
+    this.rightMoveEnable = false;
+    this.leftMoveEnable = true;
    }
 
   Onrightslide(event){
-    this.imageIndex +=1;
+    this.imageIndex++;
     if( this.imageIndex >= 0 && this.imageIndex  < this.imageNumber){
-      this.rightMoveEnable = true;
+      this.rightMoveEnable = false;
     }
     else {
-      this.rightMoveEnable = false;
+      this.rightMoveEnable = true;
     }
   }
   Onleftslide(event){
-    this.imageIndex -=1;
+    this.imageIndex--;
     if(  this.imageIndex  > 0 && this.imageIndex <= this.imageNumber ){
-      this.leftMoveEnable = true;
+      this.leftMoveEnable = false;
     }
     else {
-      this.leftMoveEnable = false;
+      this.leftMoveEnable = true;
     }
 
   }

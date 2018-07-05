@@ -1,6 +1,6 @@
 <div id="slide-show-root">
   <div id="slide-show">
-    <div id="slide-show-left" [ngClass]="{  'disabled':leftMoveEnable}" (click) = "Onleftslide($event)">
+    <div id="slide-show-left" [ngClass]="{'disabled':leftMoveEnable}" (click)="Onleftslide($event)">
       <img src="../../assets/images/left.png" class="slider">
     </div>
     <div id="slide-show-main">
@@ -8,11 +8,12 @@
         <img [src]="slideimages[imageIndex]?.path">
         <!-- ↓課題2で使用 -->
         <div id="tag-view-area">
+          {{imageIndex}}
           <span>tag</span>
         </div>
       </li>
     </div>
-    <div id="slide-show-right" [ngClass]="{'disabled':rightMoveEnable}" (click) = "Onrightslide($event)">
+    <div id="slide-show-right" [ngClass]="{'disabled': rightMoveEnable}" (click) = "Onrightslide($event)">
       <img src="../../assets/images/right.png" class="slider">
     </div>
   </div>
