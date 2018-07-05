@@ -7,7 +7,7 @@
     </div>
     <div id="slide-show-main">
       <li *ngFor="let item of items; let i = index">
-        <img *ngIf="i === index" [src]="item.path">
+        <img *ngIf="i === target_index" [src]="item.path">
         <!-- <img [src]=""> -->
         <!-- ↓課題2で使用 -->
         <!-- <div id="tag-view-area">
