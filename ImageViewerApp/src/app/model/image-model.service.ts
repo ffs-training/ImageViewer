@@ -10,10 +10,34 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class ImageModelService {
+  images: Array<ImageModel>;
+  constructor(private serverService: ServerService) { }
 
-  constructor() { }
+  //----------------mapのやり方----------------//
+  fetch() : Observable<ImageModel[]> {
+    this.images = [];
+    return this.serverService.getImages().pipe(
+      map( (images) => {
+        this.images = images.map(image => this.deserialize(image));
+        return this.images;
+      })
+    );
+  }
 
-  private deserialize(image:any):ImageModel {
+  //--------------foreachのやり方--------------//
+  // fetch() : Observable<ImageModel[]> {
+  //   this.images = [];
+  //   return this.serverService.getImages().pipe(
+  //     map(images => {
+  //       images.forEach(image => {
+  //         this.images.push(this.deserialize(image))
+  //       });
+  //       return this.images;
+  //     })
+  //   );
+  // }
+  
+  private deserialize(image: any): ImageModel {
     return  deserialize<ImageModel>(ImageModel, {
       id: image.Id,
       path: image.Path,
@@ -21,7 +45,7 @@ export class ImageModelService {
     });
   }
 
-  private serialize(imageModel:ImageModel):string {
+  private serialize(imageModel: ImageModel): string {
     return serialize({
       Id:imageModel.id,
       Path:imageModel.path,
