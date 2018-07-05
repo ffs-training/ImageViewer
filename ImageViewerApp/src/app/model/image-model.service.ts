@@ -17,12 +17,17 @@ export class ImageModelService {
   }
   
 
-  fetch(): Observable<any> {
+  fetch(): Observable<Array<ImageModel>> {
     return this.serverService.getImages().pipe( 
-      map( (images) => { this.imageModelArray = images.map( (image) => this.deserialize(image));} ),
+      map( (images) => { 
+        this.imageModelArray = [];
+        images.forEach( (image) => 
+          this.imageModelArray.push(this.deserialize(image)));
+          return  this.imageModelArray;
+        }), 
       catchError(error => of(error)) 
     );
-    
+  
   }
 
   private deserialize(image:any):ImageModel {
@@ -35,13 +40,10 @@ export class ImageModelService {
 
   private serialize(imageModel:ImageModel):string {
     return serialize({
-      Id:imageModel.id,
-      Path:imageModel.path,
-      Tags:imageModel.tags
+      Id: imageModel.id,
+      Path: imageModel.path,
+      Tags: imageModel.tags
     });
   }
 
-  private extractData(res: Object) {
-    return res;
-  }
 }

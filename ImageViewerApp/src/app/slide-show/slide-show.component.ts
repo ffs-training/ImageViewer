@@ -12,17 +12,45 @@ import { ObserverService} from '../common/observer.service';
 })
 export class SlideShowComponent implements OnInit {
 
-  imageModelArray: Array<ImageModel>;
+  private imageModelArray: Array<ImageModel>;
+  private index: number = 0;
+  private isLeft: boolean;
+  private isRight: boolean;
+
   constructor(private imageModelService: ImageModelService) {
     this.imageModelArray = new Array<ImageModel>();
+    this.ngOnInit();
+    this.isLeft = true;
+    this.isRight = false;
   }
 
   ngOnInit() {
     this.imageModelService.fetch().subscribe(
-      (image) => { 
-        this.imageModelArray.push(image);
-        console.log(image);
+      (images) => { 
+        this.imageModelArray = images;
+        console.log(this.imageModelArray);
       }      
     )   
+  }
+
+  onRightClick()
+  {
+    if(this.index === this.imageModelArray.length - 1){
+      this.isRight = true;
+    }else{
+      this.index++;
+      this.isRight = false;
+    }
+    
+  }
+
+  onLeftClick()
+  {
+    if(this.index === 0){
+      this.isLeft = true;
+    }else{
+      this.index--;
+      this.isLeft = false;
+    }
   }
 }
