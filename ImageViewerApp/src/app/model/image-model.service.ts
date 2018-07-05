@@ -36,6 +36,24 @@ export class ImageModelService {
     );
   }
 
+  // タグ追加処理
+  addTag(id: number, tag: string) {
+    // idの一致するimageを見つけてタグを追加する
+    let image = this.images.find((image) =>{
+      return image.id === id;
+    });
+    image.addTag(tag);
+    // foreach文での書き換え
+    // this.images.forEach((img) => {
+    // if(img.id === id) {
+    // img.addTag(tag);  
+    //}
+    //});
+    
+    // タグを更新する
+    this.serverService.updateImage(image.id,this.serialize(image));
+  }
+
   private deserialize(image: any): ImageModel {
     return deserialize<ImageModel>(ImageModel, {
       id: image.Id,

@@ -16,12 +16,18 @@
         <!-- <ng-template ngFor let-image [ngForOf]="images">
             <img [src]="image.path">
         </ng-template>      -->
+        <!-- ↓課題2で使用 -->
+        <!-- <div id="tag-view-area"> -->
+        <div id="tag-view-area">
+          tag:
+          <span *ngFor="let tag of showTag; let i = index">
+            <span *ngIf="i !== 0">
+              ,
+            </span>
+            {{tag}}
+          </span>
+        </div>
       </li>
-      <!-- ↓課題2で使用 -->
-      <!-- <div id="tag-view-area"> -->
-      <!-- <div id="tag-view-area" *ngIf="i == showIndex"> -->
-        <!-- <span>tag</span> -->
-      <!-- </div> -->
     </div>
     <!-- 右ボタン -->
     <div id="slide-show-right" (click)="onClickedRightButton()" [ngClass]="{'disabled': isRightDisabled}">

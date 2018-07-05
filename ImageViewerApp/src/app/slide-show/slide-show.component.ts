@@ -18,9 +18,10 @@ export class SlideShowComponent implements OnInit {
   private maxIndex;
   private isLeftDisabled: boolean;
   private isRightDisabled: boolean;
-  //private showIndex: number;
+  //private showIndex: number = 0;
+  private showTag: string[];
 
-  constructor(private imageModelService: ImageModelService) { }
+  constructor(private imageModelService: ImageModelService, private observerService: ObserverService) { }
 
   ngOnInit() {
     // fetchをよぶ
@@ -35,18 +36,31 @@ export class SlideShowComponent implements OnInit {
         console.log(this.maxIndex);
         // 表示する画像を格納
         this.viewImage = images[0];
+        // indexで判断すべき
         this.isLeftDisabled = true;
         this.isRightDisabled = false;
+        this.showTag = this.viewImage.tags;
+
       });
+
+    // タグ追加イベントを受け取る
+    // 受け取ったタグの処理
+    // この位置だと非常にまずいと思う
+    this.observerService.addEventLister("addTagEvent", this, (tag) => {
+      this.imageModelService.addTag(this.viewImage.id, tag);
+      // this.images[this.showIndex];
+      this.showTag = this.viewImage.tags;
+    });
   }
 
   // 右ボタンを呼ばれたときのイベント
   onClickedRightButton() {
-    if (this.index < this.maxIndex-1) {
+    if (this.index < this.maxIndex - 1) {
       this.index++;
       this.viewImage = this.images[this.index];
+      this.showTag = this.viewImage.tags;
       this.isLeftDisabled = false;
-      if (this.index == this.maxIndex-1)
+      if (this.index == this.maxIndex - 1)
         this.isRightDisabled = true;
     }
   }
@@ -56,10 +70,10 @@ export class SlideShowComponent implements OnInit {
     if (this.index > 0) {
       this.index--;
       this.viewImage = this.images[this.index];
+      this.showTag = this.viewImage.tags;
       this.isRightDisabled = false;
       if (this.index == 0)
         this.isLeftDisabled = true;
     }
   }
 }
-  

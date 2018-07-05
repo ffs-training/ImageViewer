@@ -7,6 +7,7 @@ import { ServerService } from './common/server.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
   providers: [
+    // 一つのインスタンスを使いまわす
     { provide: ObserverService, useClass: ObserverService },
     { provide: ServerService, useClass: ServerService }
   ]
