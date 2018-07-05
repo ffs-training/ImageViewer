@@ -1,19 +1,21 @@
 <div id="slide-show-root">
   <div id="slide-show">
-    <div id="slide-show-left" [ngClass]="{ 'disabled': false }">
-      <img src="../../assets/images/left.png" class="slider">
+    <div id="slide-show-left" [ngClass]="{ 'disabled': disableLeft }">
+      <img src="../../assets/images/left.png" class="slider" (click)="decrementIndex($event)">
     </div>
     <div id="slide-show-main">
-      <li>
-        <img [src]="">
+      <!-- <li *ngFor="let image of images; let i = index"> -->
+        <!-- <img *ngIf="i === imageIndex" [src]="image.path"> -->
+        <li>
+        <img [src] = "images[imageIndex].path">
         <!-- ↓課題2で使用 -->
         <!-- <div id="tag-view-area">
           <span>tag</span>
         </div> -->
       </li>
     </div>
-    <div id="slide-show-right" [ngClass]="{'disabled': false}">
-      <img src="../../assets/images/right.png" class="slider">
+    <div id="slide-show-right" [ngClass]="{'disabled': disableRight}">
+      <img src="../../assets/images/right.png" class="slider" (click)="incrementIndex($event)">
     </div>
   </div>
 </div>
