@@ -13,17 +13,19 @@ const httpOptions = {
 })
 export class ServerService {
 
-  private baseUrl = 'https://localhost:0000/api/';
+  private baseUrl = 'http://localhost:62174/api/';
 
   constructor(private http: HttpClient) { }
 
   /** GET images from the server */
   getImages(): Observable<any[]> {
-    // var url: string = this.baseUrl + '/images';
+    // サーバー接続時
+    // const url: string = this.baseUrl + '/images';
     // return this.http.get<any[]>(url)
     //   .pipe(
     //     catchError(this.handleError('getImages', []))
     //   );
+    // サーバー非接続時
     const images = [
       { Id: 1, Path: '../../assets/images/test-image.png', Tags:[]},
       { Id: 2, Path: '../../assets/images/test-image2.jpg', Tags:[] },
