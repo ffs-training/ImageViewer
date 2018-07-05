@@ -7,11 +7,13 @@
       <!-- <li *ngFor="let image of images; let i = index"> -->
         
         <li>
-        <img [src]="images[index].path">
+        <img [src]="images[index]?.path">
         <!-- ↓課題2で使用 -->
-        <!-- <div id="tag-view-area">
-          <span>tag</span>
-        </div> -->
+        <div id="tag-view-area">
+          <span *ngFor = "let tag of images[index]?.tags;">
+            {{tag}}
+          </span>
+        </div>
       </li>
     </div>
     <div id="slide-show-right" [ngClass]="{'disabled': false}">

@@ -12,18 +12,23 @@ import { Observable } from 'rxjs';
   styleUrls: ['./slide-show.component.css']
 })
 export class SlideShowComponent implements OnInit {
-  images :ImageModel[];
+  images :ImageModel[] = new Array;
   index :number=0;
 
-  constructor(private imageModelService : ImageModelService) { 
+  constructor(
+    private imageModelService : ImageModelService,
+    private observerService:ObserverService) { 
   }
 
   ngOnInit() {
-     this.imageModelService.fetch().subscribe(
-       (images) => {
-         this.images = images;
-       }
-     )
+    this.imageModelService.fetch().subscribe(
+      (images) => {
+        this.images = images;
+      }
+    )
+    this.observerService.addEventLister('addTagEvent', this, (tag) => {
+      this.images = this.imageModelService.addTag((this.index+1),tag);
+    });
   }
 
   add(event) {

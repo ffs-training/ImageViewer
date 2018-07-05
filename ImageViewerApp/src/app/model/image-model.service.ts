@@ -10,7 +10,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class ImageModelService {
-  images : ImageModel[];
+  private images : ImageModel[];
   constructor(private serverService : ServerService) { }
 
   fetch(): Observable<ImageModel[]>{
@@ -27,6 +27,18 @@ export class ImageModelService {
       })
     )
   }
+
+  addTag(id:number,newtag:string):ImageModel[]{
+    this.images.forEach((img)=>{
+      if(img.id===id){
+        img.tagAdd(newtag);
+        this.serverService.updateImage(id,serialize(img));
+      }
+    });
+    return this.images;
+  }
+
+
 
   private deserialize(image:any):ImageModel {
     return  deserialize<ImageModel>(ImageModel, {
