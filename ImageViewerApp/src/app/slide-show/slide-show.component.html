@@ -5,7 +5,7 @@
     </div>
     <div id="slide-show-main">
       <li *ngFor= "let image of imageModelArray; let i = index">
-        <img *ngIf= "i === index" [src]="image.path">
+        <img *ngIf= "i === showIndex" [src]="image.path">
         <!-- ↓課題2で使用 -->
         <!-- <div id="tag-view-area">
           <span>tag</span>

@@ -13,7 +13,7 @@ import { ObserverService} from '../common/observer.service';
 export class SlideShowComponent implements OnInit {
 
   private imageModelArray: Array<ImageModel>;
-  private index: number = 0;
+  private showIndex: number = 0;
   private isLeft: boolean;
   private isRight: boolean;
 
@@ -34,23 +34,29 @@ export class SlideShowComponent implements OnInit {
   }
 
   onRightClick()
-  {
-    if(this.index === this.imageModelArray.length - 1){
+  { 
+    if(this.showIndex >= this.imageModelArray.length - 1){
       this.isRight = true;
     }else{
-      this.index++;
-      this.isRight = false;
+      this.showIndex++;
+      //this.isRight = false;
+      this.isLeft = false;
+      if(this.showIndex >= this.imageModelArray.length - 1) this.isRight = true;
     }
     
   }
 
   onLeftClick()
   {
-    if(this.index === 0){
+    if(this.showIndex <= 0){
       this.isLeft = true;
     }else{
-      this.index--;
-      this.isLeft = false;
+      this.showIndex--;
+      //this.isLeft = false;
+      this.isRight = false;
+      if(this.showIndex <= 0) this.isLeft = true;
     }
+
+    
   }
 }
