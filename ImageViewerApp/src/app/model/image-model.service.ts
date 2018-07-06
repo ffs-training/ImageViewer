@@ -30,8 +30,23 @@ export class ImageModelService {
       
   }
 
-  addtags(){}
+  addtag(tag,id){
 
+    let targetimage : ImageModel ;
+
+    this.images.forEach((image) =>
+    {
+       if ( image.id === id )
+       {
+          image.addTag(tag);
+          targetimage = image ;
+       }
+       
+    } 
+    )
+
+  this.serverService.updateImage(id,this.serialize(targetimage));
+  }
 
   private deserialize(image:any):ImageModel {
     return  deserialize<ImageModel>(ImageModel, {

@@ -12,7 +12,8 @@ import { ObserverService } from '../common/observer.service';
 })
 export class SlideShowComponent implements OnInit {
 
-  constructor(private imagemodelservice: ImageModelService) { }
+  constructor(private imagemodelservice: ImageModelService,
+  private observerservice: ObserverService) {}
 
   //false(0) or true(1)
   showIndex = 0;
@@ -26,7 +27,15 @@ export class SlideShowComponent implements OnInit {
       (data) => {
         this.images = data;
       });
-  }
+
+      //発火されたことを通知された後に実行内容を登録
+  this.observerservice.addEventLister("addtag",this, (tag:string)=> {
+  
+    this.imagemodelservice.addtag(tag,this.images[this.showIndex].id)
+  })
+};
+
+
 
   //右ボタンに関する実装
   RightClick(event) {
@@ -49,4 +58,7 @@ export class SlideShowComponent implements OnInit {
       this.showIndex -= 1;
     }
   }
+
+  
+
 }
