@@ -40,7 +40,7 @@ export class ServerService {
   }
 
   updateImage(id: number, json: string): Observable<any> {
-    var url: string = this.baseUrl + '/' + id + '/';
+    var url: string = this.baseUrl + '/images/' + id + '/';
     return this.http.put<any>(url, json, httpOptions)
       .pipe(
         catchError(this.handleError('updateImage', []))

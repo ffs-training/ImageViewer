@@ -5,15 +5,16 @@ import { deserialize } from 'serializer.ts/Serializer';
 import { serialize } from 'serializer.ts/Serializer';
 import { map, tap, catchError } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
+import {ObserverService} from '../common/observer.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ImageModelService {
 
-  constructor(private serverService: ServerService) { }
+  constructor(private serverService: ServerService,private observerService: ObserverService) { }
 
-  //images: Array<ImageModel>;
+ 
   images: ImageModel[];
 
   
@@ -29,12 +30,12 @@ export class ImageModelService {
         //return of(this.images);
   }
 
-addTag(id: number, tag: string){
+addTag(id: number, tag: string) :Observable<any>{
 
   const image = this.images.find((image) => {return image.id === id});
   image.addTag(tag);
   
-  this.serverService.updateImage(image.id, this.serialize(image))
+  return this.serverService.updateImage(image.id, this.serialize(image));
   
 }
 
