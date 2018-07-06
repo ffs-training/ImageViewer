@@ -1,19 +1,20 @@
 <div id="slide-show-root">
   <div id="slide-show">
-    <div id="slide-show-left" [ngClass]="{ 'disabled': false }">
-      <img src="../../assets/images/left.png" class="slider">
+    <div id="slide-show-left" [ngClass]="{ 'disabled': (imageIndex <= 0 ) }">
+      <a (click)="OnClickL();"><img src="../../assets/images/left.png" class="slider"></a>
     </div>
     <div id="slide-show-main">
-      <li>
-        <img [src]="">
+      <li *ngFor="let item of items; let i = index;">
+        <img *ngIf="i === imageIndex" [src]="item.path">
         <!-- ↓課題2で使用 -->
-        <!-- <div id="tag-view-area">
-          <span>tag</span>
-        </div> -->
+        <div id="tag-view-area" *ngIf="i === imageIndex">
+          <span *ngFor="let tag of item.tags; let j = index;"><span *ngIf = "j !== 0;">,</span>{{tag}}</span>
+        </div>
       </li>
     </div>
-    <div id="slide-show-right" [ngClass]="{'disabled': false}">
-      <img src="../../assets/images/right.png" class="slider">
+    
+    <div id="slide-show-right" [ngClass]="{'disabled':(imageIndex >= items?.length - 1)}">
+      <a  (click)="OnClickR();"><img src="../../assets/images/right.png" class="slider" ></a>
     </div>
   </div>
 </div>

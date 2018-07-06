@@ -3,15 +3,46 @@ import { ImageModel } from './image-model';
 import { ServerService } from '../common/server.service';
 import { deserialize } from 'serializer.ts/Serializer';
 import { serialize } from 'serializer.ts/Serializer';
-import { map, tap } from 'rxjs/operators';
-import { Observable } from 'rxjs';
+import { map, tap, catchError } from 'rxjs/operators';
+import { Observable,of, observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ImageModelService {
+  images: ImageModel[];
 
-  constructor() { }
+  constructor(private serverService: ServerService) { }
+
+  fetch(): Observable<any>{
+    this.images = [];
+    return this.serverService.getImages().pipe(map((data)=>{
+      //console.log(data)
+      data.forEach((data)=>{this.images.push(this.deserialize(data));});
+      return this.images;
+      //console.log(this.images);
+      //ここで取ってきたimagesを1つずつany型からImageModel型に変換（deserialize()）してthis.imagesに格納
+      ;
+      
+    }),catchError(error => of(error)));
+    
+  }
+  addtag(id: number,tag:string){
+   
+   
+
+    this.images.forEach((img) =>{
+      if (img.id === id){
+        img.addtag(tag)
+        this.serverService.updateImage(id,serialize(img));
+      }
+    })
+
+    
+  }
+
+
+
 
   private deserialize(image:any):ImageModel {
     return  deserialize<ImageModel>(ImageModel, {
