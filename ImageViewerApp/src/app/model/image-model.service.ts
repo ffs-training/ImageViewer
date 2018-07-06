@@ -25,12 +25,10 @@ export class ImageModelService {
     );
   }
 
-  addTag(id:number, tag:string){
+  addTag(id:number, tag:string): Observable<ImageModel>{
     let image = this.images.find(i => i.id === id);
     image.updateTag(tag);
-    this.serverService.updateImage(image.id, this.serialize(image)).pipe(
-      map(() => this.observerService.fireEvent('updateOver'))
-    );
+    return this.serverService.updateImage(image.id, this.serialize(image));
   }
   
   

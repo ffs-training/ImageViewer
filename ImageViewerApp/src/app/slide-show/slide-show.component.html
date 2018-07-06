@@ -8,7 +8,10 @@
         <img [src]="image.path" *ngIf="i == showindex">
         <!-- ↓課題2で使用 -->
         <div id="tag-view-area" *ngIf="i == showindex" align = "center">        
-            タグ情報:<span>{{ image.tags }} </span>
+            タグ情報:
+            <span *ngFor="let tag of image.tags; let j = index">
+              <span *ngIf="j != 0">,</span>{{ tag }} 
+            </span>
         </div>
       </li>
     </div>
