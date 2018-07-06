@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ObserverService} from '../common/observer.service';
+import { AppComponent } from '../app.component';
 
 @Component({
   selector: 'app-tag',
@@ -7,9 +8,13 @@ import { ObserverService} from '../common/observer.service';
   styleUrls: ['./tag.component.css']
 })
 export class TagComponent implements OnInit {
-
-  constructor() { }
-
+  tag = '';
+  
+  constructor(private observerService:ObserverService) { }
   ngOnInit() {
   }
+
+  addTag(event){
+    this.observerService.fireEvent('addTagEvent!',this.tag);
+  } 
 }

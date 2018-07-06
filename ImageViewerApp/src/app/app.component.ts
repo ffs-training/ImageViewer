@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ObserverService } from './common/observer.service';
 import { ServerService } from './common/server.service';
+import { delay } from 'q';
 
 @Component({
   selector: 'app-root',
@@ -13,10 +14,13 @@ import { ServerService } from './common/server.service';
 })
 export class AppComponent implements OnInit {
   isLoading: boolean = true;
-
-  constructor() {}
-
+  constructor(private observerService:ObserverService) {}
   ngOnInit() {
     this.isLoading = false;
+    this.observerService.addEventLister('addTagEvent!',this,
+    ()=>this.isLoading = true)
+
+    this.observerService.addEventLister('complete!',this,
+    ()=>this.isLoading = false)
   }
 }
