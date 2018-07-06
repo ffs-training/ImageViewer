@@ -33,8 +33,14 @@ export class SlideShowComponent implements OnInit {
     
     this.observerService
     .addEventLister('addTag!', this, (tag) => {
-      this.imageModelService.updateTags(this.imageModelArray[this.showIndex].id, tag);
+      this.imageModelService.updateTags(this.imageModelArray[this.showIndex].id, tag).subscribe(
+        () => { this.observerService.fireEvent('finishUpdata!') }
+      ); 
+     
     });
+
+    
+
   }
 
   onRightClick(event){ 

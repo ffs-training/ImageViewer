@@ -46,8 +46,10 @@ export class ImageModelService {
     });
   }
 
-  updateTags(id: number, tag: string){
-    this.imageModelArray.find((image) =>  {return image.id == id}).setTag(tag);
-    this.serverService.updateImage(id, tag);
+  updateTags(id: number, tag: string): Observable<any>{
+    let image = this.imageModelArray.find((image) =>  {return image.id == id});
+    image.setTag(tag); 
+    return this.serverService.updateImage(id, serialize(image));
+     
   }
 }
