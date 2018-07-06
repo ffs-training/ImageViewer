@@ -5,6 +5,8 @@ import { deserialize } from 'serializer.ts/Serializer';
 import { serialize } from 'serializer.ts/Serializer';
 import { map, tap, catchError } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+import { ObserverService } from '../common/observer.service';
+
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +15,7 @@ export class ImageModelService {
 
   images: ImageModel[];
 
-  constructor(private serverService: ServerService) {
+  constructor(private serverService: ServerService, private observerService: ObserverService) {
 
   }
 
@@ -37,9 +39,9 @@ export class ImageModelService {
   }
 
   // タグ追加処理
-  addTag(id: number, tag: string) {
+  addTag(id: number, tag: string): Observable<any> {
     // idの一致するimageを見つけてタグを追加する
-    let image = this.images.find((image) =>{
+    let image = this.images.find((image) => {
       return image.id === id;
     });
     image.addTag(tag);
@@ -49,9 +51,16 @@ export class ImageModelService {
     // img.addTag(tag);  
     //}
     //});
-    
+
     // タグを更新する
-    this.serverService.updateImage(image.id,this.serialize(image));
+    return this.serverService.updateImage(image.id, this.serialize(image));
+    //.pipe(
+    //map(() => {
+    // ここでイベント発火してもうまくいかない
+    //this.observerService.fireEvent("upDateTagEvent");
+    //console.log("イベント発火");
+    //})
+    //  );
   }
 
   private deserialize(image: any): ImageModel {

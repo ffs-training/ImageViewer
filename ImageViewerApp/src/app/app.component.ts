@@ -15,9 +15,22 @@ import { ServerService } from './common/server.service';
 export class AppComponent implements OnInit {
   isLoading: boolean = true;
 
-  constructor() {}
+  constructor(private observerService: ObserverService) {}
 
   ngOnInit() {
     this.isLoading = false;
+
+    // loading開始
+    // タグ追加イベントを受け取る
+    this.observerService.addEventLister("addTagEvent", this, (tag) => {
+      console.log("タグ更新開始");
+      this.isLoading = true;
+    });
+    // タグ更新完了イベントを受け取る
+    // loading終わり
+    this.observerService.addEventLister("upDateTagEvent", this, () => {
+      console.log("タグ更新完了");
+      this.isLoading = false;
+    });
   }
 }

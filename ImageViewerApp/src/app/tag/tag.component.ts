@@ -18,7 +18,7 @@ export class TagComponent implements OnInit {
     // タグ追加イベント
     this.observerService.fireEvent("addTagEvent", this.tag);
     console.log("addTag");
-    // this.tag ="";
+    this.tag ="";
     // slide-showコンポーネントでイベントは受け取る
     
   }

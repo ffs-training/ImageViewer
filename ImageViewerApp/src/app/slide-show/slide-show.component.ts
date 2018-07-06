@@ -45,12 +45,17 @@ export class SlideShowComponent implements OnInit {
 
     // タグ追加イベントを受け取る
     // 受け取ったタグの処理
-    // この位置だと非常にまずいと思う
     this.observerService.addEventLister("addTagEvent", this, (tag) => {
-      this.imageModelService.addTag(this.viewImage.id, tag);
+
+      this.imageModelService.addTag(this.viewImage.id, tag).subscribe(() =>{
+        this.observerService.fireEvent("upDateTagEvent");
+      }
+      )
       // this.images[this.showIndex];
       this.showTag = this.viewImage.tags;
     });
+
+    
   }
 
   // 右ボタンを呼ばれたときのイベント
