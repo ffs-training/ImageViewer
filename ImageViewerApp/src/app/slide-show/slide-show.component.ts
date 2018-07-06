@@ -5,6 +5,8 @@ import { ImageModelService } from '../model/image-model.service';
 
 import { ObserverService } from '../common/observer.service';
 import { Observable } from 'rxjs';
+import { timeout } from 'rxjs/operators';
+import { ServerService } from '../common/server.service';
 
 @Component({
   selector: 'app-slide-show',
@@ -25,11 +27,13 @@ export class SlideShowComponent implements OnInit {
       this.imageIndex = 0;
       this.renewButtonDisabled();
     });
-    
 
     this.observerService.addEventLister('addTagEvent', this, (tag) => {
-      this.imageModelService.addTag(this.images[this.imageIndex].id, tag);
+      this.imageModelService.addTag(this.images[this.imageIndex].id, tag).subscribe(() => {
+        this.observerService.fireEvent('completeRenewModelEvent');
+      });
     });
+
   }
 
   incrementIndex(event) {

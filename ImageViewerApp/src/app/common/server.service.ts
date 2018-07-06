@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
+import { ObserverService } from 'src/app/common/observer.service';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -15,7 +16,7 @@ export class ServerService {
 
   private baseUrl = 'http://localhost:62174/api/';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private observerService:ObserverService) { }
 
   /** GET images from the server */
   getImages(): Observable<any[]> {
@@ -40,7 +41,7 @@ export class ServerService {
   }
 
   updateImage(id: number, json: string): Observable<any> {
-    var url: string = this.baseUrl + '/images/' + id + '/';
+    var url: string = this.baseUrl + 'images/' + id + '/';
     return this.http.put<any>(url, json, httpOptions)
       .pipe(
         catchError(this.handleError('updateImage', []))
