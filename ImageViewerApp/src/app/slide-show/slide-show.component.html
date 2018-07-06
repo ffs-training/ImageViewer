@@ -1,18 +1,35 @@
 <div id="slide-show-root">
   <div id="slide-show">
-    <div id="slide-show-left" [ngClass]="{ 'disabled': false }">
+    <!-- 左ボタン -->
+    <div id="slide-show-left" (click)="onClickedLeftButton()" [ngClass]="{ 'disabled': isLeftDisabled }">
       <img src="../../assets/images/left.png" class="slider">
     </div>
     <div id="slide-show-main">
+      <!-- これでも動くここから -->
+      <!-- <li *ngFor="let image of images; let i = index">
+          <img [src]="image.path" *ngIf="i == showIndex">
+          showIndexと一致した画像だけ表示するようにする 
+        -->
+      <!-- ここまで -->
       <li>
-        <img [src]="">
+        <img [src]="viewImage.path">
+        <!-- <ng-template ngFor let-image [ngForOf]="images">
+            <img [src]="image.path">
+        </ng-template>      -->
         <!-- ↓課題2で使用 -->
-        <!-- <div id="tag-view-area">
-          <span>tag</span>
-        </div> -->
+        <div id="tag-view-area">
+          tag:
+          <span *ngFor="let tag of showTag; let i = index">
+            <span *ngIf="i !== 0">
+              ,
+            </span>
+            {{tag}}
+          </span>
+        </div>
       </li>
     </div>
-    <div id="slide-show-right" [ngClass]="{'disabled': false}">
+    <!-- 右ボタン -->
+    <div id="slide-show-right" (click)="onClickedRightButton()" [ngClass]="{'disabled': isRightDisabled}">
       <img src="../../assets/images/right.png" class="slider">
     </div>
   </div>
