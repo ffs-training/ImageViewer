@@ -15,7 +15,7 @@ tag ='';
   }
 
   public addtag() {
-    console.log('test');
+    console.log('tag');
     this.observerService.fireEvent('addTag',this.tag);
   }
 
