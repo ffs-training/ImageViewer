@@ -12,6 +12,7 @@ export class TagComponent implements OnInit {
 
   addTag(){
     this.observerService.fireEvent('addTagEvent',this.tag);
+    
   }
   ngOnInit() {
   }
