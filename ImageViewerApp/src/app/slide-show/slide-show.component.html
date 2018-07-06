@@ -1,18 +1,21 @@
 <div id="slide-show-root">
   <div id="slide-show">
-    <div id="slide-show-left" [ngClass]="{ 'disabled': false }">
+    <div type = "button" id="slide-show-left" [ngClass]="{'disabled': leftbutton }" (click) = "leftButtonClick($event)">
       <img src="../../assets/images/left.png" class="slider">
     </div>
     <div id="slide-show-main">
-      <li>
-        <img [src]="">
+      <li *ngFor="let image of images; let i = index">
+        <img [src]="image.path" *ngIf="i == showindex">
         <!-- ↓課題2で使用 -->
-        <!-- <div id="tag-view-area">
-          <span>tag</span>
-        </div> -->
+        <div id="tag-view-area" *ngIf="i == showindex" align = "center">        
+            タグ情報:
+            <span *ngFor="let tag of image.tags; let j = index">
+              <span *ngIf="j != 0">,</span>{{ tag }} 
+            </span>
+        </div>
       </li>
     </div>
-    <div id="slide-show-right" [ngClass]="{'disabled': false}">
+    <div id="slide-show-right" [ngClass]="{'disabled': rightbutton }" (click) = "rightButtonClick($event)">
       <img src="../../assets/images/right.png" class="slider">
     </div>
   </div>
