@@ -4,6 +4,7 @@ import { ImageModel } from '../model/image-model';
 import { ImageModelService} from '../model/image-model.service';
 
 import { ObserverService} from '../common/observer.service';
+import { delay } from 'q';
 
 @Component({
   selector: 'app-slide-show',
@@ -19,9 +20,12 @@ export class SlideShowComponent implements OnInit {
   
   ngOnInit() {
     this.imageModelService.fetch().subscribe(image => this.images = image);
+
     this.observerService.addEventLister('addTagEvent!',this,
-    (tag)=>{this.images[this.showIndex].tags+tag;});
-  }
+    (tag)=>{this.imageModelService.addTag(this.images[this.showIndex].id,tag).subscribe(() => {
+      this.observerService.fireEvent('complete!');
+    })}
+    )}
   incrementer(event){
     if(this.images.length-1>this.showIndex){
     this.showIndex++;

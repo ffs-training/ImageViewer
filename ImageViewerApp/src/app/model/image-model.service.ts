@@ -5,6 +5,7 @@ import { deserialize } from 'serializer.ts/Serializer';
 import { serialize } from 'serializer.ts/Serializer';
 import { map, tap, catchError } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+import { delay } from 'q';
 
 @Injectable({
   providedIn: 'root'
@@ -33,15 +34,16 @@ export class ImageModelService {
     
   }
 
-  addTag(id:number,tag:string){
-   const image = this.images.find((img) =>{return img.id === id});
-   image.addTag(tag); 
+  addTag(id:number,tag:string):Observable<any>{
+   let image = this.images.find((img) =>img.id === id);
+   image.addTag(tag);
+   return this.serverService.updateImage(id,this.serialize(image));
    
   //  this.images.forEach((img)=>{if(img.id === id){
   //    img.addTag(tag);
   //  }})
 
-  this.serverService.updateImage(id,this.serialize(image));
+  //this.serverService.updateImage(id,this.serialize(image));
   }
 
   private deserialize(image:any):ImageModel {

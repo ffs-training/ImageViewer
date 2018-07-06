@@ -1,19 +1,23 @@
+import { delay } from "rxjs/operators";
+
 export class ImageModel {
     id: number;
     path: string;
     tags: string[];
-
-    // nullCheck(){
-    //     if(this.tags.length == 0){
-    //         return true;
-    //     }
-    // }
-    // tagCheck(inTag:string){
-    //     this.tags.forEach((tag=>{if(tag == inTag) return}))
-    // }
-    
     addTag(tag:string){
-        this.tags.forEach((inTag) => {if(inTag != tag && tag == ''){}else{tag = '';}})
+        let flag:Boolean = true;
+        if(tag === ''){
+            flag = false
+        }else{
+            this.tags.forEach((tags)=>{
+                if(tags === tag){
+                    flag = false;
+                }
+            });
+        }
+        if(flag){
+            this.tags.push(tag);
+        }
     }
 }
 

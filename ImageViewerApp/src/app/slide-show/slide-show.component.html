@@ -8,7 +8,7 @@
         <img *ngIf = "i === showIndex" [src]="image.path" >
         <!-- ↓課題2で使用 -->
         <div *ngIf = "i === showIndex" id="tag-view-area">
-          <span>{{image.tags}}</span>
+          <span *ngFor = "let tag of image.tags; let j =index"><span *ngIf= "j !==0">,</span>{{tag}}</span>
         </div>
       </li>
     </div>
