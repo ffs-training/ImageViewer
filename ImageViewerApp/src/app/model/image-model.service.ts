@@ -5,6 +5,7 @@ import { deserialize } from 'serializer.ts/Serializer';
 import { serialize } from 'serializer.ts/Serializer';
 import { map, tap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+import { ObserverService} from '../common/observer.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,7 @@ export class ImageModelService {
 
   images :ImageModel[];
 
-  constructor(private serverService: ServerService) { }
+  constructor(private serverService: ServerService, private observerService: ObserverService) { }
 
   private deserialize(image:any):ImageModel {
     return  deserialize<ImageModel>(ImageModel, {
@@ -46,11 +47,10 @@ export class ImageModelService {
     );
   }
 
-  public update(index: number, input: string){
+  public update(index: number, input: string): Observable<void>{
     //新しいtagを設定
     this.images[index].setTags(input);
     //アップデート（サーバー）
-    this.serverService.updateImage(this.images[index].id,this.serialize(this.images[index]));
-  }
-
+    return this.serverService.updateImage(this.images[index].id,this.serialize(this.images[index]));
+    }
 }

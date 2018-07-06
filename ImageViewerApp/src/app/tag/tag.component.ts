@@ -19,6 +19,10 @@ export class TagComponent implements OnInit {
 
   onPut(event){
     //イベント発火
-    this.observerService.fireEvent('update',this.input)
+    //addtagイベント
+    this.observerService.fireEvent('addtag');
+    //updateイベント
+    this.observerService.fireEvent('update',this.input);
+
   }
 }
