@@ -14,9 +14,17 @@ import { ServerService } from './common/server.service';
 export class AppComponent implements OnInit {
   isLoading: boolean = true;
 
-  constructor() {}
+  constructor(private observerService:ObserverService) {}
 
   ngOnInit() {
     this.isLoading = false;
+    this.observerService.addEventLister('addTagEvent', this, ()=>{
+      this.isLoading = true;
+    });
+    this.observerService.addEventLister('EndAddTagEvent',this,()=>{
+      this.isLoading = false;
+    })
+
   }
+  
 }
