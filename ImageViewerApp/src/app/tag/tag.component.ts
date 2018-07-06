@@ -13,7 +13,8 @@ export class TagComponent implements OnInit {
   ngOnInit() {
   }
 
-  onAdd(){
+  onAdd(event){
+  //  if(this.tag !== "" && this.tag !== Image.)
     this.addTag();
   }
 

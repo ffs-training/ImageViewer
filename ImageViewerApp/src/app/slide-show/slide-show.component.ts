@@ -16,8 +16,8 @@ import { ServerService } from '../common/server.service';
 export class SlideShowComponent implements OnInit {
 
 
-  constructor(private imagemodelservice: ImageModelService) { }
-  private observerService: ObserverService;
+  constructor(private imagemodelservice: ImageModelService,private observerService: ObserverService) { }
+  
 
   //images: Observable<ImageModel[]>;
   images: ImageModel[];
@@ -39,16 +39,23 @@ minIndex = 0;
 
   ngOnInit() {
 
+
     //this.images = this.imagemodelservice.fetch();
     this.imagemodelservice.fetch().subscribe((images)=>{
       this.images = images
       this.maxIndex =  this.images.length -1
-    }
-  );
 
-  this.observerService.addEventLister('addTagEvent', this, (tag) => {
-   this.images[this.showIndex];
-  });
-  }
+      
+      
+  } 
+  )
+  this.observerService.addEventLister('addTagEvent!', this, (tag) => {
+    this.imagemodelservice.addTag(this.images[this.showIndex].id, tag)
+   }
+  ) 
+
+
+  
+}
 }
 

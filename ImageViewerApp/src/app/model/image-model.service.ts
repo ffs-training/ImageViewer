@@ -35,6 +35,7 @@ addTag(id: number, tag: string){
   image.addTag(tag);
   
   this.serverService.updateImage(image.id, this.serialize(image))
+  
 }
 
 
