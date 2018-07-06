@@ -8,8 +8,21 @@ import { ObserverService} from '../common/observer.service';
 })
 export class TagComponent implements OnInit {
 
-  constructor() { }
+  private input :string;
+
+  constructor(private observerService: ObserverService) { 
+    this.input = '';
+  }
 
   ngOnInit() {
+  }
+
+  onPut(event){
+    //イベント発火
+    //addtagイベント
+    this.observerService.fireEvent('addtag');
+    //updateイベント
+    this.observerService.fireEvent('update',this.input);
+
   }
 }
