@@ -10,8 +10,10 @@ export class ImageModel {
         this.tags = tags;
     }
 
-    addTag(tag: string[]){
-        this.tags = tag;
+    updateTag(tag: string){
+        if(!this.tags.includes(tag) && tag !=''){
+            this.tags.push(tag);
+        }
     }
 
 

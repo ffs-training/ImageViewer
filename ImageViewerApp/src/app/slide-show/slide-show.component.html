@@ -6,10 +6,11 @@
     <div id="slide-show-main">
         <li >
         <img [src]="slideimages[imageIndex]?.path">
+        <!-- <li *ngFor="let image of slideimages; let i = imageindex">
+          <img [src]="image.path" *ngIf="i == imageIndex"> -->
         <!-- ↓課題2で使用 -->
-        <div id="tag-view-area">
-          {{imageIndex}}
-          <span>tag</span>
+        <div id="tag-view-area"  align = "center">
+           タグ情報 <span>{{slideimages[imageIndex]?.tags}}</span>
         </div>
       </li>
     </div>

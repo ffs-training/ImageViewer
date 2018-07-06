@@ -21,7 +21,7 @@ export class ServerService {
 
   /** GET images from the server */
   getImages(): Observable<any[]> {
-    var url: string = this.baseUrl + '/images';
+    var url: string = this.baseUrl + 'images';
     return this.http.get<any[]>(url)
       .pipe(
         catchError(this.handleError('getImages', []))
@@ -42,7 +42,7 @@ export class ServerService {
   }
 
   updateImage(id: number, json: string): Observable<any> {
-    var url: string = this.baseUrl + '/images' + id + '/';
+    var url: string = this.baseUrl + 'images/' + id + '/';
     return this.http.put<any>(url, json, httpOptions)
       .pipe(
         catchError(this.handleError('updateImage', []))

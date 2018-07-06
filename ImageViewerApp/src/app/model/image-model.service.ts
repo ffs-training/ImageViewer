@@ -38,6 +38,13 @@ export class ImageModelService {
 
   }
 
+  addTag(id:number, Tag : string):Observable<any>{
+  let image = this.images.find( x => x.id === id);
+  image.updateTag(Tag);
+  return this.serverService.updateImage(image.id, this.serialize(image));
+
+  }
+
   private deserialize(anyObject: any): ImageModel {
     return deserialize<ImageModel>(ImageModel, {
       id: anyObject.Id,
