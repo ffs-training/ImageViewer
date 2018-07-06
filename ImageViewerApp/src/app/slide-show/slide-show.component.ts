@@ -35,7 +35,9 @@ export class SlideShowComponent implements OnInit {
     )
     //updateイベント設定
     this.observerService.addEventLister('update',this, (tag) => {
+      
       this.imageModelService.update(this.target_index,tag).subscribe( () => {
+        //updateイベントが終了したら完了イベント発火
         this.observerService.fireEvent('complete');
       });
     });
