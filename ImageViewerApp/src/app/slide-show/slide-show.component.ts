@@ -25,7 +25,10 @@ export class SlideShowComponent implements OnInit {
     this.observerService.addEventLister('addTagEvent!',this,
     (tagtext)=>{
       // this.images[this.showIndex].addTag(tagtext);
-      this.imageModelService.addTag(this.images[this.showIndex].id,tagtext);
+      this.imageModelService.addTag(this.images[this.showIndex].id,tagtext).subscribe(
+        () => {this.observerService.fireEvent('Complete!','')}
+      );
+      //this.observerService.fireEvent('Complete!','');//
       }
   );
   }

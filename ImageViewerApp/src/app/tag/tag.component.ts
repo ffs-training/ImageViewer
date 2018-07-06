@@ -10,8 +10,7 @@ export class TagComponent implements OnInit {
   tagtext = '';
   constructor(private observerService:ObserverService) { }
   onAdd(event){
-    this.observerService.fireEvent('addTagEvent!',this.tagtext);
-    this.tagtext;
+    this.observerService.fireEvent('addTagEvent!',this.tagtext);    
   }
   ngOnInit() {
   }
